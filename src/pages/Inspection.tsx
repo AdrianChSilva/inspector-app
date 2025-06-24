@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useIncidenceStore } from "../stores/incidenceStore";
+import { useNavigate } from "react-router-dom";
 
 const Inspection = () => {
+  const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [notes, setNotes] = useState("");
@@ -107,12 +109,20 @@ const Inspection = () => {
             </div>
           </div>
 
-          <button
-            onClick={handleSubmit}
-            className="mt-4 bg-blue-600 hover:bg-blue-700 transition-colors text-white py-2 px-4 rounded-md text-sm font-medium"
-          >
-            Registrar
-          </button>
+          <div className="flex flex-col gap-2 mt-4">
+            <button
+              onClick={handleSubmit}
+              className="bg-blue-600 hover:bg-blue-700 transition-colors text-white py-2 px-4 rounded-md text-sm font-medium"
+            >
+              Registrar
+            </button>
+            <button
+              onClick={() => navigate("/map")}
+              className="text-blue-600 underline text-sm"
+            >
+              Ver incidencias en el mapa
+            </button>
+          </div>
         </div>
       </div>
     </div>
