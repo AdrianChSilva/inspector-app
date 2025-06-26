@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useIncidenceStore } from "../stores/incidenceStore";
 import { useNavigate } from "react-router-dom";
 import { getCoordinates } from "../utils/mapUtils";
+import SmartSelect from "../components/SmartSelect";
+import { categoryOptions, subcategoryOptions } from "../constants/categories";
+import { useUIStore } from "../stores/uiStore";
 
 const Inspection = () => {
   const navigate = useNavigate();
@@ -10,6 +13,7 @@ const Inspection = () => {
   const [notes, setNotes] = useState("");
   const [count, setCount] = useState(0);
   const addIncidence = useIncidenceStore((state) => state.addIncidence);
+  const triggerReset = useUIStore((state) => state.triggerReset);
 
   const cleanState = () => {
     setCategory("");
@@ -33,6 +37,7 @@ const Inspection = () => {
     addIncidence(newIncidence);
     console.log("Incidencia registrada:", newIncidence);
     cleanState();
+    triggerReset();
   };
 
   return (
@@ -43,41 +48,25 @@ const Inspection = () => {
         </h1>
 
         <div className="flex flex-col gap-4">
-          <select
-            className="border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          <SmartSelect
+            label="Categoría"
+            options={categoryOptions}
             value={category}
-            onChange={(e) => {
-              setCategory(e.target.value);
+            onChange={(val) => {
+              setCategory(val);
               setSubcategory("");
             }}
-          >
-            <option value="">Selecciona categoría</option>
-            <option value="Operativo">Operativo</option>
-            <option value="Paramentos verticales">Paramentos verticales</option>
-          </select>
+            placeholder="Selecciona categoría"
+          />
 
-          {category === "Operativo" && (
-            <select
-              className="border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          {category && subcategoryOptions[category] && (
+            <SmartSelect
+              label="Subcategoría"
+              options={subcategoryOptions[category]}
               value={subcategory}
-              onChange={(e) => setSubcategory(e.target.value)}
-            >
-              <option value="">Selecciona subcategoría</option>
-              <option value="Papelera con suciedad">
-                Papelera con suciedad
-              </option>
-            </select>
-          )}
-
-          {category === "Paramentos verticales" && (
-            <select
-              className="border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={subcategory}
-              onChange={(e) => setSubcategory(e.target.value)}
-            >
-              <option value="">Selecciona subcategoría</option>
-              <option value="Grafitis fachadas">Grafitis fachadas</option>
-            </select>
+              onChange={setSubcategory}
+              placeholder="Selecciona subcategoría"
+            />
           )}
 
           <textarea
