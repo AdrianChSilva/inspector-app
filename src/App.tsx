@@ -1,20 +1,26 @@
-import React from 'react';
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Login  from './pages/Login';
-import Home from './pages/Home';
-import StartInspection from './pages/StartInspection';
-import Inspection from './pages/Inspection';
-import Map from './pages/Map';
+import ProtectedRoute from './utils/ProtectedRoute';
 
-const App: React.FC = () => {
+const Login = lazy(() => import('./pages/Login'));
+const Home = lazy(() => import('./pages/Home'));
+const StartInspection = lazy(() => import('./pages/StartInspection'));
+const Inspection = lazy(() => import('./pages/Inspection'));
+const Map = lazy(() => import('./pages/Map'));
+
+const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/start" element={<StartInspection />} />
-      <Route path="/inspection" element={<Inspection />} />
-      <Route path="/map" element={<Map />} />
-    </Routes>
+    <Suspense fallback={<div className="text-center p-4">Cargando...</div>}>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/start" element={<StartInspection />} />
+          <Route path="/inspection" element={<Inspection />} />
+          <Route path="/map" element={<Map />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useIncidenceStore } from "../stores/incidenceStore";
 import { useNavigate } from "react-router-dom";
+import { getCoordinates } from "../utils/mapUtils";
 
 const Inspection = () => {
   const navigate = useNavigate();
@@ -17,23 +18,21 @@ const Inspection = () => {
     setCount(0);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!category || !subcategory) return;
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const { latitude, longitude } = pos.coords;
-      const newIncidence = {
-        category,
-        subcategory,
-        notes,
-        count,
-        latitude,
-        longitude,
-        createdAt: new Date().toISOString(),
-      };
-      addIncidence(newIncidence);
-      console.log("Incidencia registrada:", newIncidence);
-      cleanState();
-    });
+    const { latitude, longitude } = await getCoordinates();
+    const newIncidence = {
+      category,
+      subcategory,
+      notes,
+      count,
+      latitude,
+      longitude,
+      createdAt: new Date().toISOString(),
+    };
+    addIncidence(newIncidence);
+    console.log("Incidencia registrada:", newIncidence);
+    cleanState();
   };
 
   return (
