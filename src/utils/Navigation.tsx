@@ -35,6 +35,16 @@ const Navigation = () => {
       >
         Mapa
       </Link>
+      <Link
+        to="/trackingMap"
+        className={`text-sm ${
+          location.pathname === "/trackingMap"
+            ? "text-blue-700 font-semibold"
+            : "text-blue-500"
+        }`}
+      >
+        Navegador
+      </Link>
     </nav>
   );
 };

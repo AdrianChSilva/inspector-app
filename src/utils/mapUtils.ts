@@ -9,8 +9,9 @@ export const getCoordinates = (): Promise<{
   longitude: number;
 }> => {
   return new Promise((resolve) => {
-    const isProd = import.meta.env.MODE === "production"
-    const useGps = isProd && import.meta.env.VITE_USE_GPS === 'true';
+    // const isProd = import.meta.env.MODE === "production"
+    const useGps = import.meta.env.VITE_USE_GPS === 'true';
+    // const useGps = isProd && import.meta.env.VITE_USE_GPS === 'true';
     if (useGps && 'geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {

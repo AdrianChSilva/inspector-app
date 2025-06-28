@@ -5,12 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:host": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "4.1.10",
+    "@turf/turf": "^7.2.0",
     "mapbox-gl": "^3.13.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",

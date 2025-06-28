@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './utils/ProtectedRoute';
+import TrackingMap from './pages/TrackingMap';
 
 const Login = lazy(() => import('./pages/Login'));
 const Home = lazy(() => import('./pages/Home'));
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/start" element={<StartInspection />} />
           <Route path="/inspection" element={<Inspection />} />
           <Route path="/map" element={<Map />} />
+          <Route path="/trackingMap" element={<TrackingMap />} />
         </Route>
       </Routes>
     </Suspense>
