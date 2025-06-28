@@ -9,12 +9,12 @@ import {
   nearestPointOnLine,
   lineSliceAlong,
 } from "@turf/turf";
-import { smallCenterCoord } from "../constants/routesCoordinates";
+import { paseoYarita } from "../constants/routesCoordinates";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 
-const routeLine = lineString(smallCenterCoord);
+const routeLine = lineString(paseoYarita);
 const totalRouteLength = length(routeLine); // en km
 
 const TrackingMap = () => {
