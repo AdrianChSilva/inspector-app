@@ -13,12 +13,14 @@ import { paseoYarita } from "../constants/routesCoordinates";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
+
 const routeLine = lineString(paseoYarita);
 const totalRouteLength = length(routeLine); // en km
 
 const TrackingMap = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
+  const userMarkerRef = useRef<mapboxgl.Marker | null>(null);
 
   const [progressPercent, setProgressPercent] = useState(0);
 
@@ -66,16 +68,6 @@ const TrackingMap = () => {
           "line-width": 6,
         },
       });
-
-      map.addControl(
-        new mapboxgl.GeolocateControl({
-          positionOptions: {
-            enableHighAccuracy: true,
-          },
-          trackUserLocation: true,
-          showUserHeading: true,
-        })
-      );
     });
 
     return () => map.remove();
@@ -85,6 +77,33 @@ const TrackingMap = () => {
     const watchId = navigator.geolocation.watchPosition(
       (pos) => {
         const coords: LngLatLike = [pos.coords.longitude, pos.coords.latitude];
+        const heading = pos.coords.heading ?? 0;
+
+        // Crea un elemento HTML personalizado para rotar la flecha
+        const el = document.createElement("div");
+        el.className = "w-4 h-4 bg-blue-500 rounded-full rotate-0";
+        el.style.transform = `rotate(${heading}deg)`;
+        el.style.width = "20px";
+        el.style.height = "20px";
+        el.style.borderRadius = "50%";
+        el.style.border = "2px solid white";
+        el.style.boxShadow = "0 0 4px rgba(0,0,0,0.3)";
+        el.style.backgroundColor = "#3b82f6";
+
+        // Mueve o crea el marcador del usuario
+        if (userMarkerRef.current) {
+          userMarkerRef.current.setLngLat(coords);
+          userMarkerRef.current.getElement().style.transform = `rotate(${heading}deg)`;
+        } else {
+          userMarkerRef.current = new mapboxgl.Marker({ element: el })
+            .setLngLat(coords)
+            .addTo(mapRef.current!);
+        }
+
+        // Centra el mapa en la posición actual
+        mapRef.current?.easeTo({ center: coords, duration: 1000 });
+
+        // Calcula progreso usando turf
         const pointTurf = point(coords as [number, number]);
         const snapped = nearestPointOnLine(routeLine, pointTurf);
         const distance = snapped.properties!.location as number;
@@ -92,19 +111,16 @@ const TrackingMap = () => {
 
         setProgressPercent(Math.round(percentage));
 
+        // Dibuja el tramo recorrido como línea gris
         const traveledLine = lineSliceAlong(routeLine, 0, distance);
-        const completedSource = mapRef.current?.getSource(
-          "completed"
-        ) as mapboxgl.GeoJSONSource;
+        const completedSource = mapRef.current?.getSource("completed") as mapboxgl.GeoJSONSource;
         if (completedSource) {
           completedSource.setData(traveledLine);
         }
       },
       (err) => {
         console.error("Error GPS:", err);
-        alert(
-          "No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso."
-        );
+        alert("No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso.");
       },
       {
         enableHighAccuracy: true,
@@ -115,6 +131,7 @@ const TrackingMap = () => {
 
     return () => navigator.geolocation.clearWatch(watchId);
   }, []);
+
 
   return (
     <div className="relative h-screen w-full">
