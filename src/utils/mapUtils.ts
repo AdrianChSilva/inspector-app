@@ -1,3 +1,10 @@
+export const geoLocationValidator = () => {
+  if (!navigator.geolocation) {
+    alert("Tu navegador no tiene geolocalización");
+    throw new Error("Tu navegador no tiene geolocalización");
+  }
+};
+
 export const getRandomMalagaCenterCoords = () => {
   const lat = 36.721 + (Math.random() - 0.5) * 0.01;
   const lng = -4.421 + (Math.random() - 0.5) * 0.01;
@@ -10,9 +17,9 @@ export const getCoordinates = (): Promise<{
 }> => {
   return new Promise((resolve) => {
     // const isProd = import.meta.env.MODE === "production"
-    const useGps = import.meta.env.VITE_USE_GPS === 'true';
+    const useGps = import.meta.env.VITE_USE_GPS === "true";
     // const useGps = isProd && import.meta.env.VITE_USE_GPS === 'true';
-    if (useGps && 'geolocation' in navigator) {
+    if (useGps && "geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           resolve({

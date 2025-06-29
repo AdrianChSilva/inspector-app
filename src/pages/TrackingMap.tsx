@@ -13,7 +13,6 @@ import { paseoYarita } from "../constants/routesCoordinates";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
-
 const routeLine = lineString(paseoYarita);
 const totalRouteLength = length(routeLine); // en km
 
@@ -113,14 +112,18 @@ const TrackingMap = () => {
 
         // Dibuja el tramo recorrido como línea gris
         const traveledLine = lineSliceAlong(routeLine, 0, distance);
-        const completedSource = mapRef.current?.getSource("completed") as mapboxgl.GeoJSONSource;
+        const completedSource = mapRef.current?.getSource(
+          "completed"
+        ) as mapboxgl.GeoJSONSource;
         if (completedSource) {
           completedSource.setData(traveledLine);
         }
       },
       (err) => {
         console.error("Error GPS:", err);
-        alert("No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso.");
+        alert(
+          "No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso."
+        );
       },
       {
         enableHighAccuracy: true,
@@ -131,7 +134,6 @@ const TrackingMap = () => {
 
     return () => navigator.geolocation.clearWatch(watchId);
   }, []);
-
 
   return (
     <div className="relative h-screen w-full">
