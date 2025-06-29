@@ -55,7 +55,7 @@ const TrackingMap = () => {
 
       map.addSource("completed", {
         type: "geojson",
-        data: lineString([]),
+        data: lineString(paseoYarita.slice(0, 2)), // Al menos dos puntos
       });
 
       map.addLayer({
@@ -94,8 +94,11 @@ const TrackingMap = () => {
         if (userMarkerRef.current) {
           userMarkerRef.current.setLngLat(coords);
           const markerEl = userMarkerRef.current.getElement();
-          const coneEl = markerEl.querySelector(".custom-marker-cone") as HTMLElement;
-          if (coneEl) coneEl.style.transform = `translateX(-50%) rotate(${heading}deg)`;
+          const coneEl = markerEl.querySelector(
+            ".custom-marker-cone"
+          ) as HTMLElement;
+          if (coneEl)
+            coneEl.style.transform = `translateX(-50%) rotate(${heading}deg)`;
         } else {
           userMarkerRef.current = new mapboxgl.Marker({ element: el })
             .setLngLat(coords)
@@ -112,14 +115,19 @@ const TrackingMap = () => {
         setProgressPercent(Math.round(percentage));
 
         const traveledLine = lineSliceAlong(routeLine, 0, distance);
-        const completedSource = mapRef.current?.getSource("completed") as mapboxgl.GeoJSONSource;
-        if (completedSource) {
+        const completedSource = mapRef.current?.getSource(
+          "completed"
+        ) as mapboxgl.GeoJSONSource;
+
+        if (traveledLine.geometry.coordinates.length >= 2 && completedSource) {
           completedSource.setData(traveledLine);
         }
       },
       (err) => {
         console.error("Error GPS:", err);
-        alert("No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso.");
+        alert(
+          "No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso."
+        );
       },
       {
         enableHighAccuracy: true,
