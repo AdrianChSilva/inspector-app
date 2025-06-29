@@ -10,6 +10,7 @@ import {
   lineSliceAlong,
 } from "@turf/turf";
 import { paseoYarita } from "../constants/routesCoordinates";
+import "../App.css";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -78,31 +79,31 @@ const TrackingMap = () => {
         const coords: LngLatLike = [pos.coords.longitude, pos.coords.latitude];
         const heading = pos.coords.heading ?? 0;
 
-        // Crea un elemento HTML personalizado para rotar la flecha
         const el = document.createElement("div");
-        el.className = "w-4 h-4 bg-blue-500 rounded-full rotate-0";
-        el.style.transform = `rotate(${heading}deg)`;
-        el.style.width = "20px";
-        el.style.height = "20px";
-        el.style.borderRadius = "50%";
-        el.style.border = "2px solid white";
-        el.style.boxShadow = "0 0 4px rgba(0,0,0,0.3)";
-        el.style.backgroundColor = "#3b82f6";
+        el.className = "custom-marker";
 
-        // Mueve o crea el marcador del usuario
+        const dot = document.createElement("div");
+        dot.className = "custom-marker-dot";
+        el.appendChild(dot);
+
+        const cone = document.createElement("div");
+        cone.className = "custom-marker-cone";
+        cone.style.transform = `translateX(-50%) rotate(${heading}deg)`;
+        el.appendChild(cone);
+
         if (userMarkerRef.current) {
           userMarkerRef.current.setLngLat(coords);
-          userMarkerRef.current.getElement().style.transform = `rotate(${heading}deg)`;
+          const markerEl = userMarkerRef.current.getElement();
+          const coneEl = markerEl.querySelector(".custom-marker-cone") as HTMLElement;
+          if (coneEl) coneEl.style.transform = `translateX(-50%) rotate(${heading}deg)`;
         } else {
           userMarkerRef.current = new mapboxgl.Marker({ element: el })
             .setLngLat(coords)
             .addTo(mapRef.current!);
         }
 
-        // Centra el mapa en la posición actual
         mapRef.current?.easeTo({ center: coords, duration: 1000 });
 
-        // Calcula progreso usando turf
         const pointTurf = point(coords as [number, number]);
         const snapped = nearestPointOnLine(routeLine, pointTurf);
         const distance = snapped.properties!.location as number;
@@ -110,20 +111,15 @@ const TrackingMap = () => {
 
         setProgressPercent(Math.round(percentage));
 
-        // Dibuja el tramo recorrido como línea gris
         const traveledLine = lineSliceAlong(routeLine, 0, distance);
-        const completedSource = mapRef.current?.getSource(
-          "completed"
-        ) as mapboxgl.GeoJSONSource;
+        const completedSource = mapRef.current?.getSource("completed") as mapboxgl.GeoJSONSource;
         if (completedSource) {
           completedSource.setData(traveledLine);
         }
       },
       (err) => {
         console.error("Error GPS:", err);
-        alert(
-          "No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso."
-        );
+        alert("No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso.");
       },
       {
         enableHighAccuracy: true,
