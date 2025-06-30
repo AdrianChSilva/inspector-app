@@ -49,11 +49,10 @@ const TrackingMap = () => {
       });
 
       incidences.forEach((inc) => {
-        const popup = new mapboxgl.Popup({ offset: 25, closeButton: true }).setHTML(`
+        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
           <div class="text-sm text-gray-800 space-y-1">
             <div class="flex justify-between items-center">
               <p class="font-semibold">${inc.category} - ${inc.subcategory}</p>
-              
             </div>
             <p><span class="font-medium">Notas:</span> ${inc.notes}</p>
             <p><span class="font-medium">Cantidad:</span> ${inc.count}</p>

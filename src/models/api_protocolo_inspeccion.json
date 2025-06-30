@@ -1,0 +1,602 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "title": "Orines y vómitos",
+      "items": [
+        {
+          "id": "1.1",
+          "title": "Orines o vómitos en vía pública",
+          "description": "Se cuentan por unidad si se encuentran en estado líquido y color amarillento. No se contabilizan los provocados por baldeo, calles mojadas, etc."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Malos olores",
+      "items": [
+        {
+          "id": "2.1",
+          "title": "Malos olores RESIDUOS",
+          "description": "Se detecta olor a lixiviados, excrementos o residuos. Si hay manchas, se contabiliza como mancha."
+        },
+        {
+          "id": "2.2",
+          "title": "Malos olores OTROS",
+          "description": "Olor ajeno a LIMASAM. No se contabilizan manchas ni charcos por baldeo."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Manchas",
+      "items": [
+        {
+          "id": "3.1",
+          "title": "Manchas residuales",
+          "description": "Manchas en zonas de 30m² (10x3m aprox.) por residuos como lixiviados o grasas. Ocupan al menos el 50% de la zona."
+        },
+        {
+          "id": "3.2",
+          "title": "Manchas vegetales",
+          "description": "Manchas generadas por restos vegetales. Ocupan al menos el 50% de una zona de 30m². Si hay textura pegajosa, se marca siempre."
+        },
+        {
+          "id": "3.3",
+          "title": "Manchas de chicles",
+          "description": "Manchas por chicles en zonas de 1m². Se pueden marcar varias zonas si están separadas al menos 10 metros."
+        },
+        {
+          "id": "3.4",
+          "title": "Manchas en entorno de contenedores",
+          "description": "Manchas en el pavimento alrededor de contenedores por lixiviados de basura."
+        },
+        {
+          "id": "3.5",
+          "title": "Manchas en entorno de papeleras",
+          "description": "Manchas en el pavimento bajo o junto a papeleras por lixiviados de basura."
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Restos de lixiviado en el asfalto",
+      "items": [
+        {
+          "id": "4.1",
+          "title": "Restos de lixiviado",
+          "description": "Manchas por residuos o grasas en asfalto que ocupen al menos 1m²."
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Colillas",
+      "items": [
+        {
+          "id": "5.1",
+          "title": "Agrupación de colillas",
+          "description": "10 o más colillas separadas más de 1 metro de contenedor, papelera o escombro."
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Excrementos",
+      "items": [
+        {
+          "id": "6.1",
+          "title": "En viario",
+          "description": "Separados más de 1m de contenedor o papelera. Excluye zonas de albero o alcorques."
+        },
+        {
+          "id": "6.2",
+          "title": "En terrizo/alcorques",
+          "description": "También separados más de 1m, pero ubicados en zonas no pavimentadas."
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Papeles y cartones",
+      "items": [
+        {
+          "id": "7.1",
+          "title": "Papeles/cartones",
+          "description": "Residuos separados más de 1m de cualquier contenedor o papelera. Agrupados o por unidad."
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Cartones de origen comercial no plegado",
+      "items": [
+        {
+          "id": "8.1",
+          "title": "Cartones comerciales",
+          "description": "Agrupación de 2 o más cajas sin plegar y alejadas de contenedor/papelera."
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "title": "Restos vegetales y hojas",
+      "items": [
+        {
+          "id": "9.1",
+          "title": "Restos vegetales/hojas",
+          "description": "Acumulaciones de al menos 5m² de hojas, ramas o restos de vegetación."
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Residuos orgánicos pequeños",
+      "items": [
+        {
+          "id": "10.1",
+          "title": "Residuos orgánicos pequeños",
+          "description": "Ej. cáscaras, pan, huesos. Agrupación de 10 o más unidades en 1m²."
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "title": "Residuos orgánicos medianos",
+      "items": [
+        {
+          "id": "11.1",
+          "title": "Residuos tipo naranja o melón",
+          "description": "3 unidades tipo naranja por m² o 1 melón o mayor por unidad."
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "title": "Muebles/Voluminosos",
+      "items": [
+        {
+          "id": "12.1",
+          "title": "Voluminosos",
+          "description": "Muebles, colchones o electrodomésticos abandonados."
+        },
+        {
+          "id": "12.2",
+          "title": "Voluminosos de indigentes",
+          "description": "Objetos que pertenecen a personas sin hogar en la vía pública."
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "title": "Plásticos y envases",
+      "items": [
+        {
+          "id": "13.1",
+          "title": "Residuos plásticos o envases",
+          "description": "Bolsas, botellas, latas, etc. separados más de 1m de contenedores o papeleras."
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "title": "Vidrios",
+      "items": [
+        {
+          "id": "14.1",
+          "title": "Botellas, frascos o cristales rotos",
+          "description": "Separados más de 1m de contenedor o papelera."
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "title": "Bolsas de basura",
+      "items": [
+        {
+          "id": "15.1",
+          "title": "Bolsas en espacio público",
+          "description": "Separadas más de 1m de contenedor o papelera. Se contabilizan individualmente."
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "title": "Otros residuos",
+      "items": [
+        {
+          "id": "16.1",
+          "title": "Residuos varios",
+          "description": "Ropa, calzado, juguetes, maderas, azulejos, etc. agrupados por m²."
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "title": "Residuos en zonas ajardinadas",
+      "items": [
+        {
+          "id": "17.1",
+          "title": "Residuos acumulados",
+          "description": "En parterres, zonas verdes sin vegetación o descuidadas. No se cuentan voluminosos."
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "title": "Residuos en vallas",
+      "items": [
+        {
+          "id": "18.1",
+          "title": "Vallas con residuos",
+          "description": "Acumulaciones que superan 1.5m. Incluye parques infantiles con vallas."
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "title": "Residuos en parques infantiles",
+      "items": [
+        {
+          "id": "19.1",
+          "title": "Parques infantiles con residuos",
+          "description": "Se marcan si tienen vallas pequeñas o están sin vallar."
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "title": "Grafitis en fachadas",
+      "items": [
+        {
+          "id": "20.1",
+          "title": "Conjunto de pintadas",
+          "description": "En una misma fachada, 3 o más pintadas o una de al menos 20x20cm."
+        }
+      ]
+    },
+    {
+      "id": "21",
+      "title": "Grafitis en puertas",
+      "description": "Pintadas en puertas de acceso a edificios, garajes, etc.",
+      "items": []
+    },
+    {
+      "id": "22",
+      "title": "Solar con residuos",
+      "items": [
+        {
+          "id": "22.1",
+          "title": "Solar sin vallar con residuos",
+          "description": "Con restos que generen impacto visual negativo."
+        }
+      ]
+    },
+    {
+      "id": "23",
+      "title": "Solar vallado con residuos",
+      "items": [
+        {
+          "id": "23.1",
+          "title": "Solar vallado con restos",
+          "description": "Con residuos suficientes para impacto visual. Rodeado por valla o muro."
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "title": "Contenedores desbordados reales",
+      "description": "Alguna descripcion en su punto principal",
+      "items": [
+        {
+          "id": "24.1",
+          "title": "Fracción papel-cartón",
+          "description": "Todos los contenedores de la fracción están desbordados."
+        },
+        {
+          "id": "24.2",
+          "title": "Fracción plásticos y envases",
+          "description": "Todos los contenedores de la fracción están desbordados."
+        },
+        {
+          "id": "24.3",
+          "title": "Fracción resto",
+          "description": "Todos los contenedores de la fracción están desbordados."
+        },
+        {
+          "id": "24.4",
+          "title": "Fracción biorresiduos",
+          "description": "Todos los contenedores de la fracción están desbordados."
+        },
+        {
+          "id": "24.5",
+          "title": "Fracción otros",
+          "description": "Contenedores de ropa, aceite, etc. Todos llenos."
+        }
+      ]
+    },
+    {
+      "id": "25",
+      "title": "Contenedores desbordados incívicos",
+      "items": [
+        {
+          "id": "25.1",
+          "title": "Incívicos",
+          "description": "Uno o varios contenedores no cierran por mal uso aunque no estén llenos."
+        }
+      ]
+    },
+    {
+      "id": "26",
+      "title": "Contenedor con suciedad alrededor",
+      "items": [
+        {
+          "id": "26.1",
+          "title": "Residuos alrededor",
+          "description": "Residuos en un radio de 1 metro. No incluye voluminosos."
+        }
+      ]
+    },
+    {
+      "id": "27",
+      "title": "Contenedores sucios",
+      "items": [
+        {
+          "id": "27.1",
+          "title": "Contenedor sucio",
+          "description": "Suciedad, pintadas o líquidos en al menos 25% de una de sus caras."
+        }
+      ]
+    },
+    {
+      "id": "28",
+      "title": "Contenedores rotos",
+      "items": [
+        {
+          "id": "28.1",
+          "title": "Contenedor roto",
+          "description": "Agujeros o defectos que afectan el funcionamiento."
+        },
+        {
+          "id": "28.2",
+          "title": "Roto urgente",
+          "description": "Rotura grave que impide usar el contenedor."
+        }
+      ]
+    },
+    {
+      "id": "29",
+      "title": "Contenedores mal ubicados",
+      "items": [
+        {
+          "id": "29.1",
+          "title": "Mal ubicados",
+          "description": "Fuera de su zona o mal colocados dentro de la misma."
+        }
+      ]
+    },
+    {
+      "id": "30",
+      "title": "Papelera desbordada",
+      "items": [
+        {
+          "id": "30.1",
+          "title": "Papelera llena",
+          "description": "No caben más residuos. Solo se cuenta una por papelera doble."
+        }
+      ]
+    },
+    {
+      "id": "31",
+      "title": "Papelera con suciedad alrededor",
+      "items": [
+        {
+          "id": "31.1",
+          "title": "Suciedad alrededor",
+          "description": "En un radio de 1 metro. Papelera no desbordada."
+        }
+      ]
+    },
+    {
+      "id": "32",
+      "title": "Papeleras sucias",
+      "items": [
+        {
+          "id": "32.1",
+          "title": "Suciedad visible",
+          "description": "Pintadas, carteles o residuos en al menos 25% de la superficie."
+        }
+      ]
+    },
+    {
+      "id": "33",
+      "title": "Papeleras rotas",
+      "items": [
+        {
+          "id": "33.1",
+          "title": "Rota",
+          "description": "Cesta caída, cuello roto o daños que afectan el uso normal."
+        },
+        {
+          "id": "33.2",
+          "title": "Rota urgente",
+          "description": "Rotura grande o agujero por donde sale la basura."
+        }
+      ]
+    },
+    {
+      "id": "34",
+      "title": "Bancos sucios",
+      "items": [
+        {
+          "id": "34.1",
+          "title": "Suciedad o pegatinas",
+          "description": "Mínimo 20x20cm. Se cuentan por unidad (banco doble como uno)."
+        }
+      ]
+    },
+    {
+      "id": "35",
+      "title": "Bancos con grafitis",
+      "items": [
+        {
+          "id": "35.1",
+          "title": "Grafitis en bancos",
+          "description": "Mínimo un grafiti de 20x20cm o 3 más pequeños."
+        }
+      ]
+    },
+    {
+      "id": "36",
+      "title": "Buzones con mala imagen",
+      "items": [
+        {
+          "id": "36.1",
+          "title": "Buzón sucio",
+          "description": "Pegatinas, grafitis o carteles en al menos 25% de la superficie."
+        }
+      ]
+    },
+    {
+      "id": "37",
+      "title": "Marquesinas con mala imagen",
+      "items": [
+        {
+          "id": "37.1",
+          "title": "Marquesina sucia",
+          "description": "25% de superficie cubierta o falta de cristal."
+        }
+      ]
+    },
+    {
+      "id": "38",
+      "title": "Cajas eléctricas con mala imagen",
+      "items": [
+        {
+          "id": "38.1",
+          "title": "Caja eléctrica sucia",
+          "description": "Al menos 25% con pegatinas, grafitis o carteles."
+        }
+      ]
+    },
+    {
+      "id": "39",
+      "title": "Terrazas sucias",
+      "items": [
+        {
+          "id": "39.1",
+          "title": "Suciedad en terrazas",
+          "description": "Colillas, papeles u orgánicos pequeños en entorno visible."
+        }
+      ]
+    },
+    {
+      "id": "40",
+      "title": "Pavimentos con desperfectos",
+      "items": [
+        {
+          "id": "40.1",
+          "title": "Desperfectos visibles",
+          "description": "Huecos o tapas levantadas, mal colocadas o ausentes. Mínimo 20x20cm."
+        }
+      ]
+    },
+    {
+      "id": "41",
+      "title": "Señalización con mala imagen",
+      "items": [
+        {
+          "id": "41.1",
+          "title": "Señales",
+          "description": "Pegatinas o grafitis ≥40cm lineales o 20x20cm."
+        },
+        {
+          "id": "41.2",
+          "title": "Farolas",
+          "description": "Mismos criterios que señales."
+        },
+        {
+          "id": "41.3",
+          "title": "Semáforos",
+          "description": "Mismos criterios que señales."
+        }
+      ]
+    },
+    {
+      "id": "42",
+      "title": "Elementos con mala imagen",
+      "items": [
+        {
+          "id": "42.1",
+          "title": "Estaciones de Sevici",
+          "description": "Pegatinas/grafitis ≥40cm lineales o 20x20cm."
+        },
+        {
+          "id": "42.2",
+          "title": "Parquímetros",
+          "description": "Mismos criterios que estaciones."
+        },
+        {
+          "id": "42.3",
+          "title": "Puntos de carga eléctricos",
+          "description": "Mismos criterios que estaciones."
+        }
+      ]
+    },
+    {
+      "id": "43",
+      "title": "Animal muerto",
+      "items": [
+        {
+          "id": "43.1",
+          "title": "Animal en vía pública",
+          "description": "Indicar especie y ubicación. Si hay varios, se reportan todos."
+        }
+      ]
+    },
+    {
+      "id": "44",
+      "title": "Coches con signos de abandono",
+      "items": [
+        {
+          "id": "44.1",
+          "title": "Vehículo abandonado",
+          "description": "ITV caducada, ruedas pinchadas, quemado, cristales rotos, etc."
+        }
+      ]
+    },
+    {
+      "id": "45",
+      "title": "Motos con signos de abandono",
+      "items": [
+        {
+          "id": "45.1",
+          "title": "Moto abandonada",
+          "description": "Falta de piezas, quemada, ruedas pinchadas, etc."
+        }
+      ]
+    },
+    {
+      "id": "47",
+      "title": "VMP con signos de abandono",
+      "items": [
+        {
+          "id": "47.1",
+          "title": "Patinetes, monociclos, etc.",
+          "description": "Sin uso, con signos visibles de abandono."
+        }
+      ]
+    },
+    {
+      "id": "48",
+      "title": "Bicicletas con signos de abandono",
+      "items": [
+        {
+          "id": "48.1",
+          "title": "Bici abandonada",
+          "description": "Oxidadas, pinchadas, rotas o con pegatina de abandono. Sin sillín no cuenta."
+        }
+      ]
+    }
+  ]
+}
