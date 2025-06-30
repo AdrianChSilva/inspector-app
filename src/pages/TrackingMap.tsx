@@ -1,28 +1,23 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "mapbox-gl";
 import type { LngLatLike } from "mapbox-gl";
-import { useEffect, useRef, useState } from "react";
-import {
-  lineString,
-  length,
-  point,
-  nearestPointOnLine,
-  lineSliceAlong,
-} from "@turf/turf";
+import { useEffect, useRef } from "react";
+import { lineString } from "@turf/turf";
 import { paseoYarita } from "../constants/routesCoordinates";
+import { useIncidenceStore } from "../stores/incidenceStore";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const routeLine = lineString(paseoYarita);
-const totalRouteLength = length(routeLine); // en km
 
 const TrackingMap = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const userMarkerRef = useRef<mapboxgl.Marker | null>(null);
-
-  const [progressPercent, setProgressPercent] = useState(0);
+  const incidences = useIncidenceStore((state) => state.incidences);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -53,31 +48,33 @@ const TrackingMap = () => {
         },
       });
 
-      map.addSource("completed", {
-        type: "geojson",
-        data: lineString(paseoYarita.slice(0, 2)), // Al menos dos puntos
-      });
+      incidences.forEach((inc) => {
+        const popup = new mapboxgl.Popup({ offset: 25, closeButton: true }).setHTML(`
+          <div class="text-sm text-gray-800 space-y-1">
+            <div class="flex justify-between items-center">
+              <p class="font-semibold">${inc.category} - ${inc.subcategory}</p>
+              
+            </div>
+            <p><span class="font-medium">Notas:</span> ${inc.notes}</p>
+            <p><span class="font-medium">Cantidad:</span> ${inc.count}</p>
+            <p class="text-xs text-gray-500">${new Date(inc.createdAt).toLocaleString()}</p>
+          </div>
+        `);
 
-      map.addLayer({
-        id: "completed-line",
-        type: "line",
-        source: "completed",
-        layout: { "line-cap": "round", "line-join": "round" },
-        paint: {
-          "line-color": "#9ca3af",
-          "line-width": 6,
-        },
+        new mapboxgl.Marker({ color: inc.notes.trim() ? '#60a5fa' : '#3b82f6' })
+          .setLngLat([inc.longitude, inc.latitude])
+          .setPopup(popup)
+          .addTo(map);
       });
     });
 
     return () => map.remove();
-  }, []);
+  }, [incidences]);
 
   useEffect(() => {
     const watchId = navigator.geolocation.watchPosition(
       (pos) => {
         const coords: LngLatLike = [pos.coords.longitude, pos.coords.latitude];
-        const heading = pos.coords.heading ?? 0;
 
         const el = document.createElement("div");
         el.className = "custom-marker";
@@ -86,19 +83,8 @@ const TrackingMap = () => {
         dot.className = "custom-marker-dot";
         el.appendChild(dot);
 
-        const cone = document.createElement("div");
-        cone.className = "custom-marker-cone";
-        cone.style.transform = `translateX(-50%) rotate(${heading}deg)`;
-        el.appendChild(cone);
-
         if (userMarkerRef.current) {
           userMarkerRef.current.setLngLat(coords);
-          const markerEl = userMarkerRef.current.getElement();
-          const coneEl = markerEl.querySelector(
-            ".custom-marker-cone"
-          ) as HTMLElement;
-          if (coneEl)
-            coneEl.style.transform = `translateX(-50%) rotate(${heading}deg)`;
         } else {
           userMarkerRef.current = new mapboxgl.Marker({ element: el })
             .setLngLat(coords)
@@ -106,28 +92,10 @@ const TrackingMap = () => {
         }
 
         mapRef.current?.easeTo({ center: coords, duration: 1000 });
-
-        const pointTurf = point(coords as [number, number]);
-        const snapped = nearestPointOnLine(routeLine, pointTurf);
-        const distance = snapped.properties!.location as number;
-        const percentage = Math.min(100, (distance / totalRouteLength) * 100);
-
-        setProgressPercent(Math.round(percentage));
-
-        const traveledLine = lineSliceAlong(routeLine, 0, distance);
-        const completedSource = mapRef.current?.getSource(
-          "completed"
-        ) as mapboxgl.GeoJSONSource;
-
-        if (traveledLine.geometry.coordinates.length >= 2 && completedSource) {
-          completedSource.setData(traveledLine);
-        }
       },
       (err) => {
         console.error("Error GPS:", err);
-        alert(
-          "No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso."
-        );
+        alert("No se pudo obtener tu ubicación. Por favor, activa el GPS y permite el acceso.");
       },
       {
         enableHighAccuracy: true,
@@ -141,9 +109,13 @@ const TrackingMap = () => {
 
   return (
     <div className="relative h-screen w-full">
-      <div className="absolute top-4 left-4 bg-white px-4 py-2 rounded-md shadow text-sm font-medium z-10">
-        Ruta completada: {progressPercent}%
-      </div>
+      <button
+        onClick={() => navigate("/inspection")}
+        className="absolute top-4 left-4 z-10 w-12 h-12 flex items-center justify-center bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors"
+        aria-label="Volver"
+      >
+        <span className="text-2xl font-bold text-gray-700">&larr;</span>
+      </button>
       <div ref={mapContainerRef} className="h-full w-full" />
     </div>
   );
